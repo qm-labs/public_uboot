@@ -1,0 +1,12 @@
+// SPDX-License-Identifier: GPL-2.0+ OR X11
+/*
+ * SolidRun LX2162A based SOM - DPMAC17
+ * 
+ * Copyright 2021 SoldRun ltd (rabeeh@solid-run.com)
+ *
+ */
+
+/dts-v1/;
+
+#include "fsl-lx2162a-som.dtsi"
+

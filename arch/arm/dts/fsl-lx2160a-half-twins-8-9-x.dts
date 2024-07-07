@@ -1,0 +1,215 @@
+// SPDX-License-Identifier: GPL-2.0+ OR X11
+/*
+ * SolidRun LX2160ACEX7 device tree source
+ *
+ * Author:	Rabeeh Khoury <rabeeh@solid-run.com>
+ *
+ * Copyright 2019 SolidRun ltd.
+ *
+ */
+
+/dts-v1/;
+
+#include "fsl-lx2160a.dtsi"
+
+/ {
+	model = "SolidRun Half Twins Board";
+	compatible = "fsl,lx2160acex7", "fsl,lx2160a";
+
+	aliases {
+		spi0 = &fspi;
+	};
+};
+
+&dpmac3 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac4 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac5 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac6 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac7 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac8 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac9 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac10 {
+	status = "okay";
+	phy-connection-type = "xgmii";
+};
+
+&dpmac11 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&dpmac12 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&dpmac13 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&dpmac14 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&dpmac15 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&dpmac16 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&dpmac17 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&dpmac18 {
+	status = "okay";
+	phy-connection-type = "sgmii";
+};
+
+&fspi {
+	bus-num = <0>;
+	status = "okay";
+
+	qflash0: MT35XU512ABA1G12@0 {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "spi-flash";
+		spi-max-frequency = <50000000>;
+		reg = <0>;
+		/* The following setting enables 1-1-8 (CMD-ADDR-DATA) mode */
+		fspi-rx-bus-width = <8>; /* 8 FSPI Rx lines */
+		fspi-tx-bus-width = <1>; /* 1 FSPI Tx line */
+	};
+
+};
+
+&esdhc0 {
+	status = "okay";
+};
+
+&esdhc1 {
+	status = "okay";
+};
+
+&i2c0 {
+	status = "okay";
+	u-boot,dm-pre-reloc;
+	i2c-mux@77 {
+		compatible = "nxp,pca9547";
+		reg = <0x77>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		i2c@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0x0>;
+/* The following eeprin is reserved so that the 2Kb eeprom at address 0x57
+   would be used as TLV eeprom.
+			24aa512@50 {
+				compatible = "atmel,24c512";
+				reg = <0x50>;
+			};
+*/
+			spd1@51 {
+				compatible = "atmel,spd";
+				reg = <0x51>;
+			};
+			spd2@53 {
+				compatible = "atmel,spd";
+				reg = <0x53>;
+			};
+			m24c02@57 {
+				compatible = "atmel,24c02";
+				reg = <0x57>;
+			};
+		};
+		i2c@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0x1>;
+			fan-temperature-ctrlr@18 {
+				compatible = "ti,amc6821";
+				reg = <0x18>;
+				cooling-min-state = <0>;
+				cooling-max-state = <9>;
+				#cooling-cells = <2>;
+			};
+		};
+		i2c@2 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0x2>;
+			ltc3882@5c {
+				compatible = "ltc3882";
+				reg = <0x5c>;
+			};
+		};
+		i2c@3 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0x3>;
+
+			temperature-sensor@48 {
+				compatible = "nxp,sa56004";
+				reg = <0x48>;
+			};
+		};
+	};
+};
+
+&i2c2 {
+	status = "okay";
+	expander2: pca9555@24 {
+		compatible = "nxp,pca9555";
+		pinctrl-names = "default";
+		gpio-controller;
+		#gpio-cells = <2>;
+		interrupt-controller;
+		#interrupt-cells = <2>;
+		reg = <0x24>;
+	};
+};
+
+&i2c4 {
+	status = "okay";
+
+	rtc@51 {
+		compatible = "pcf2127-rtc";
+		reg = <0x51>;
+	};
+};
